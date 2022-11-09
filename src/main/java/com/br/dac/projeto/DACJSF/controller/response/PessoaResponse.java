@@ -6,6 +6,7 @@ import lombok.*;
 @Getter @Setter
 public class PessoaResponse {
 
+    private Long id;
     private String nome;
     private String cpf;
 }

@@ -16,6 +16,7 @@ public class PessoaMapper {
     public static PessoaResponse toResponse(Pessoa pessoa) {
 
         return PessoaResponse.builder()
+                .id(pessoa.getId())
                 .nome(pessoa.getNome())
                 .cpf(pessoa.getCpf())
                 .build();

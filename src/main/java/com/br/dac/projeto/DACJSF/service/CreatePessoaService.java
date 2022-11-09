@@ -1,26 +1,24 @@
 package com.br.dac.projeto.DACJSF.service;
 
+import com.br.dac.projeto.DACJSF.controller.request.PessoaRequest;
 import com.br.dac.projeto.DACJSF.controller.response.PessoaResponse;
+import com.br.dac.projeto.DACJSF.domain.Pessoa;
 import com.br.dac.projeto.DACJSF.mapper.PessoaMapper;
 import com.br.dac.projeto.DACJSF.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-
 @Service
-public class ListarPessoaService {
+public class CreatePessoaService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public List<PessoaResponse> readAll() {
-        return pessoaRepository.findAll().stream().map(PessoaMapper::toResponse).collect(toList());
-    }
+    public PessoaResponse create(PessoaRequest request) {
+        Pessoa pessoa = PessoaMapper.toEntity(request);
 
-    public PessoaResponse readOnly(Long id) {
-        return pessoaRepository.findById(id).map(PessoaMapper::toResponse).get();
+        pessoaRepository.save(pessoa);
+
+        return PessoaMapper.toResponse(pessoa);
     }
 }

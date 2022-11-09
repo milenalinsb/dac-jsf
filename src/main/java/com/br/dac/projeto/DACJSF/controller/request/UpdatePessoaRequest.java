@@ -2,10 +2,8 @@ package com.br.dac.projeto.DACJSF.controller.request;
 
 import lombok.Getter;
 import lombok.Setter;
-
 @Getter @Setter
-public class PessoaRequest {
+public class UpdatePessoaRequest {
 
     private String nome;
-    private String cpf;
 }
