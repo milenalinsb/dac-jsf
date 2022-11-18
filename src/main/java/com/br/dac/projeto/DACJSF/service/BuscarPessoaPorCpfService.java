@@ -1,26 +1,23 @@
 package com.br.dac.projeto.DACJSF.service;
 
+import com.br.dac.projeto.DACJSF.controller.response.PessoaResponse;
 import com.br.dac.projeto.DACJSF.domain.Pessoa;
 import com.br.dac.projeto.DACJSF.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
-public class BuscarPessoaService {
+public class BuscarPessoaPorCpfService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public Pessoa porId (Long pessoaId) {
-        return pessoaRepository.findById(pessoaId)
-                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Pessoa não encontrada"));
-    }
-
-    public Pessoa porCpf (String pessoaCpf) {
-        return pessoaRepository.findByCpf(pessoaCpf)
-                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Pessoa não encontrada"));
+    public List<Pessoa> porCpf(String cpf) {
+        return (pessoaRepository.findAllByCpfContaining(cpf));
     }
 }

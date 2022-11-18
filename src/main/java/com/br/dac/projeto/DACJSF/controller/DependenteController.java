@@ -1,12 +1,10 @@
 package com.br.dac.projeto.DACJSF.controller;
 
+import com.br.dac.projeto.DACJSF.controller.request.ConverterDependenteRequest;
 import com.br.dac.projeto.DACJSF.controller.request.DependenteRequest;
 import com.br.dac.projeto.DACJSF.controller.request.UpdateDependenteRequest;
 import com.br.dac.projeto.DACJSF.controller.response.DependenteResponse;
-import com.br.dac.projeto.DACJSF.service.CreateDependenteService;
-import com.br.dac.projeto.DACJSF.service.DeleteDependenteService;
-import com.br.dac.projeto.DACJSF.service.ListarDependenteService;
-import com.br.dac.projeto.DACJSF.service.UpdateDependenteService;
+import com.br.dac.projeto.DACJSF.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +29,9 @@ public class DependenteController {
     @Autowired
     private DeleteDependenteService deleteDependenteService;
 
+    @Autowired
+    private ConversorDependenteService conversorDependenteService;
+
     @GetMapping
     public List<DependenteResponse> readAll(){
         return listarDependenteService.readAll();
@@ -52,6 +53,10 @@ public class DependenteController {
         return updateDependenteService.update(dependenteId, request);
     }
 
+    @PutMapping("/{dependenteId}/converter")
+    public DependenteResponse converter(@PathVariable Long dependenteId, @RequestBody ConverterDependenteRequest request){
+        return conversorDependenteService.converter(dependenteId, request);
+    }
     @DeleteMapping("/{dependenteId}")
     public void delete(@PathVariable Long dependenteId){
         deleteDependenteService.delete(dependenteId);

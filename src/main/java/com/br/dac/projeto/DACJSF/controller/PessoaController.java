@@ -3,10 +3,7 @@ package com.br.dac.projeto.DACJSF.controller;
 import com.br.dac.projeto.DACJSF.controller.request.PessoaRequest;
 import com.br.dac.projeto.DACJSF.controller.request.UpdatePessoaRequest;
 import com.br.dac.projeto.DACJSF.controller.response.PessoaResponse;
-import com.br.dac.projeto.DACJSF.service.CreatePessoaService;
-import com.br.dac.projeto.DACJSF.service.DeletePessoaService;
-import com.br.dac.projeto.DACJSF.service.ListarPessoaService;
-import com.br.dac.projeto.DACJSF.service.UpdatePessoaService;
+import com.br.dac.projeto.DACJSF.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +28,9 @@ public class PessoaController {
     @Autowired
     private DeletePessoaService deletePessoaService;
 
+    @Autowired
+    private ListarPessoasPeloCpfService listarPessoasPeloCpfService;
+
     @GetMapping
     public List<PessoaResponse> readAll(){
         return listarPessoaService.readAll();
@@ -39,6 +39,11 @@ public class PessoaController {
     @GetMapping("/{pessoaId}")
     public PessoaResponse readOnly(@PathVariable Long pessoaId){
         return listarPessoaService.readOnly(pessoaId);
+    }
+
+    @GetMapping("/buscar")
+    public List<PessoaResponse> readByCpf(@RequestParam String cpf){
+        return listarPessoasPeloCpfService.buscarPorCpf(cpf);
     }
 
     @PostMapping
